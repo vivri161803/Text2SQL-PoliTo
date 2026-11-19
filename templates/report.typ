@@ -1,49 +1,99 @@
 #let data = json("data.json")
 #let draft = data.meta.draft
 
+// ---------- stile ----------
+#let accent = rgb("#1f4e79")
+#let muted = luma(105)
+#let ok-c = rgb("#2e7d32")
+#let mid-c = rgb("#c88a00")
+#let bad-c = rgb("#c62828")
+
 #set page(
-  paper: "a4", margin: 2cm, numbering: "1",
+  paper: "a4", margin: (x: 2.2cm, top: 2.4cm, bottom: 2.2cm), numbering: "1",
+  header: context {
+    if counter(page).get().first() > 1 {
+      set text(8pt, fill: muted)
+      [Text2SQL – #data.meta.nome #h(1fr) Matricola #data.meta.matricola]
+      v(-0.5em)
+      line(length: 100%, stroke: 0.4pt + luma(200))
+    }
+  },
   background: if draft { rotate(-45deg, text(90pt, fill: luma(235))[BOZZA]) } else { none },
 )
-#set text(size: 10pt, lang: "it")
-#set par(justify: true)
+#set text(size: 10.5pt, lang: "it")
+#set par(justify: true, leading: 0.65em, spacing: 1em)
 #set heading(numbering: "1.1")
-#show heading.where(level: 1): it => { pagebreak(weak: true); it }
+#set table(stroke: 0.4pt + luma(205), inset: 5pt)
+#set figure(gap: 0.8em)
+
+#show heading.where(level: 1): it => {
+  pagebreak(weak: true)
+  block(width: 100%, below: 1.2em, stroke: (bottom: 1.4pt + accent), inset: (bottom: 7pt),
+    text(20pt, weight: "bold", fill: accent, it))
+}
+#show heading.where(level: 2): it => block(above: 1.6em, below: 0.9em, sticky: true,
+  text(14pt, weight: "bold", fill: accent, it))
+#show heading.where(level: 3): it => block(above: 1.2em, below: 0.6em, sticky: true,
+  text(11.5pt, weight: "bold", it))
 
 // ---------- helper ----------
-#let sqlblock(s, size: 8pt) = block(width: 100%, fill: luma(245), inset: 6pt, radius: 3pt,
+#let sqlblock(s, size: 8.5pt) = block(width: 100%, fill: luma(246), stroke: (left: 2pt + accent),
+  inset: (x: 9pt, y: 7pt), radius: 2pt, breakable: true,
   text(size: size, raw(if s == none { "(nessuna query)" } else { s }, lang: "sql", block: true)))
-#let plain(s, size: 8pt) = block(width: 100%, fill: luma(250), stroke: 0.4pt + luma(200), inset: 6pt, radius: 3pt,
+#let plain(s, size: 8pt) = block(width: 100%, fill: luma(250), stroke: 0.4pt + luma(210),
+  inset: (x: 9pt, y: 7pt), radius: 2pt, breakable: true,
   text(size: size, raw(s, block: true)))
+#let note(body) = block(width: 100%, fill: luma(248), stroke: 0.4pt + luma(215), inset: 9pt, radius: 3pt,
+  breakable: true)[#set par(justify: false); #body]
+#let esito-color(e) = if e == "corretta" or e == "sì" { ok-c } else if e == "parzialmente corretta" or e == "parzialmente" { mid-c } else { bad-c }
 #let esito-box(e) = {
-  let c = if e == "corretta" { rgb("#c8e6c9") } else if e == "parzialmente corretta" { rgb("#fff3b0") } else { rgb("#f8c8c8") }
-  box(fill: c, inset: (x: 5pt, y: 2pt), radius: 3pt, strong(e))
+  let c = if e == "corretta" { rgb("#c8e6c9") } else if e == "parzialmente corretta" { rgb("#fff0b3") } else { rgb("#f8c8c8") }
+  box(fill: c, stroke: 0.5pt + esito-color(e), inset: (x: 6pt, y: 2.5pt), radius: 3pt, text(size: 9pt, weight: "bold", e))
 }
 #let prose(s) = {
   for p in s.split("\n\n") {
-    if p.starts-with("## ") { block(above: 1em, below: 0.4em, text(weight: "bold", p.slice(3))) } else { par(p) }
+    if p.starts-with("## ") {
+      block(above: 1.2em, below: 0.5em, sticky: true, text(weight: "bold", fill: accent, p.slice(3)))
+    } else { par(p) }
   }
 }
 #let lst(a) = if a.len() == 0 { "nessuno" } else { a.join("; ") }
-#let field(label, body) = block(above: 0.6em, below: 0.4em)[*#label* \ #body]
+#let lab(t) = text(size: 8pt, weight: "bold", fill: accent, tracking: 0.04em, upper(t))
+#let lab-only(t) = block(above: 1em, below: 0.4em, sticky: true, lab(t))
+#let field(label, body) = block(above: 1em, below: 0.4em, breakable: true)[#lab(label) \ #v(0.15em) #body]
 #let fmt(x) = if x == none { "-" } else { str(calc.round(x * 100, digits: 0)) + "%" }
+#let hcell(t) = table.cell(fill: accent, text(fill: white, weight: "bold", size: 9.5pt, t))
+#let zebra = (x, y) => if y == 0 { none } else if calc.odd(y) { luma(247) } else { none }
+#let model-block(alias, color, body) = block(breakable: true, width: 100%, above: 1.1em, inset: (left: 10pt, y: 2pt),
+  stroke: (left: 2.5pt + color))[
+  #text(weight: "bold", size: 11pt)[#alias]
+  #body
+]
 
 // ---------- frontespizio ----------
-#align(center + horizon)[
-  #text(24pt, weight: "bold")[#data.meta.titolo] \ #v(1em)
-  #text(14pt)[#data.meta.master] \ #v(2em)
-  #text(14pt)[#data.meta.nome] \ Matricola #data.meta.matricola \ #v(1em)
-  #data.meta.data
+#page(numbering: none, header: none)[
+  #v(5cm)
+  #block(stroke: (left: 4pt + accent), inset: (left: 14pt, y: 4pt))[
+    #text(30pt, weight: "bold", fill: accent)[#data.meta.titolo] \ #v(0.6em)
+    #text(13pt, fill: muted)[#data.meta.master]
+  ]
+  #v(3cm)
+  #text(15pt, weight: "bold")[#data.meta.nome] \
+  #text(12pt)[Matricola #data.meta.matricola] \ #v(0.5em)
+  #text(11pt, fill: muted)[#data.meta.data]
 ]
-#pagebreak()
-#outline(depth: 2)
+#pagebreak(weak: true)
+#show outline.entry.where(level: 1): it => { v(0.6em); strong(it) }
+#outline(depth: 2, indent: 1.2em)
 
 // ---------- metodologia ----------
 = Metodologia
 #prose(data.metodologia.testo)
-#table(columns: (auto, 1fr, 1fr, auto), align: left, inset: 4pt,
-  [*Alias*], [*ID servito*], [*Parametri inviati*], [*Parte*],
-  ..data.metodologia.modelli.map(m => (m.alias, text(size: 8pt, m.id), text(size: 8pt, m.params), str(m.parte))).flatten())
+#v(0.5em)
+#table(columns: (auto, 1fr, 1.2fr, auto), align: left + horizon, fill: zebra,
+  hcell[Alias], hcell[ID servito], hcell[Parametri inviati], hcell[Parte],
+  ..data.metodologia.modelli.map(m => (strong(m.alias), text(size: 8pt, m.id), text(size: 8pt, m.params), str(m.parte))).flatten())
+#v(0.5em)
 #for n in data.metodologia.note [- #n \ ]
 
 // ---------- tabella EX ----------
@@ -51,26 +101,36 @@
   let ms = sec.modelli
   let cells = ()
   for (pat, row) in sec.tabella.pairs() {
-    cells.push([P#pat])
-    for m in ms { cells.push([#fmt(row.at(m).at(0)) (base #fmt(row.at(m).at(1)))]) }
+    cells.push(strong[P#pat])
+    for m in ms {
+      let v = row.at(m).at(0)
+      let c = if v >= 0.999 { rgb("#d4edd6") } else if v >= 0.5 { rgb("#fff0b3") } else { rgb("#f8d0d0") }
+      cells.push(table.cell(fill: c)[#strong[#fmt(v)] #text(size: 8pt, fill: muted)[(base #fmt(row.at(m).at(1)))]])
+    }
   }
-  table(columns: (auto,) + (1fr,) * ms.len(), inset: 4pt, align: left,
-    [*Pattern*], ..ms.map(m => [*#m*]), ..cells)
+  align(center, table(columns: (auto,) + (1fr,) * ms.len(), align: center + horizon,
+    hcell[Pattern], ..ms.map(m => hcell(m)), ..cells))
+  text(size: 8.5pt, fill: muted)[Accuratezza di esecuzione (EX) su 5 istanze; tra parentesi quella sulla sola istanza base.]
 }
 
-#let card-p12(c, per-model-stacked: false) = block(breakable: true, width: 100%, above: 1.2em)[
-  #heading(level: 3, numbering: none)[Pattern #c.pattern#if c.strategia != none [ – #c.strategia]]
-  #field("Pattern di difficoltà")[#c.pattern_desc]
+#let card-p12(c) = block(breakable: true, width: 100%, above: 2em)[
+  #block(fill: accent.lighten(88%), inset: (x: 10pt, y: 8pt), radius: 3pt, width: 100%, sticky: true)[
+    #text(weight: "bold", size: 12pt, fill: accent)[Pattern #c.pattern#if c.strategia != none [ – #c.strategia]]
+    #h(1fr) #text(size: 9pt, fill: muted)[#c.pattern_desc]
+  ]
   #field("Domanda")[#c.domanda]
-  #field("Soluzione attesa")[]
-  #for s in c.soluzioni [#text(size: 8pt)[#emph(s.strategia)] #sqlblock(s.sql)]
-  #field("Prompt")[]
+  #lab-only("Soluzione attesa")
+  #for s in c.soluzioni [
+    #if c.soluzioni.len() > 1 [#text(size: 8.5pt, fill: muted)[#emph(s.strategia)]]
+    #sqlblock(s.sql)
+  ]
+  #lab-only("Prompt")
   #plain(c.prompt)
   #for m in c.modelli [
-    #block(breakable: true, above: 0.8em, inset: (left: 6pt), stroke: (left: 1.5pt + luma(180)))[
-      *#m.alias* #h(1em) #esito-box(m.esito)
+    #model-block(m.alias, esito-color(m.esito))[
+      #h(0.8em) #esito-box(m.esito)
       #sqlblock(m.sql)
-      *Analisi:* #m.analisi
+      #note[#lab("Analisi") \ #v(0.1em) #m.analisi]
     ]
   ]
 ]
@@ -79,44 +139,62 @@
 = Parte 1 – Modelli proprietari
 #ex-table(data.p1)
 #for c in data.p1.schede [#card-p12(c)]
-#heading(level: 2, numbering: none)[Commento generale]
+== Commento generale
 #prose(data.p1.commento)
 
 // ---------- Parte 2 ----------
 = Parte 2 – Modelli open source (≤ 8B)
 #ex-table(data.p2)
+#figure(image(data.p2.grafico, width: 85%), caption: [Accuratezza (EX) per numero di parametri.])
 #for c in data.p2.schede [#card-p12(c)]
-#figure(image(data.p2.grafico, width: 90%), caption: [Accuratezza (EX) per numero di parametri])
-#heading(level: 2, numbering: none)[Sintesi e confronto con la Parte 1]
+== Sintesi e confronto con la Parte 1
 #prose(data.p2.sintesi)
 
 // ---------- Parte 3 ----------
 = Parte 3 – Modelli con reasoning
 #for q in data.p3.queries [
+  #pagebreak(weak: true)
   #heading(level: 2)[Q#q.q]
   #field("Domanda")[#q.domanda]
-  #field("Soluzione attesa")[]
+  #lab-only("Soluzione attesa")
   #sqlblock(q.soluzione_attesa)
   #field("Interpretazioni considerate")[#lst(q.interpretazioni)]
-  #field("Prompt")[]
-  #if q.q == 1 { plain(q.prompt) } else { text(size: 8pt)[(prompt in Appendice A)] }
+  #lab-only("Prompt")
+  #if q.q == 1 { plain(q.prompt) } else { text(size: 8.5pt, fill: muted)[(prompt completo in Appendice A)] }
   #for m in q.modelli [
-    #block(breakable: true, above: 1em, inset: (left: 6pt), stroke: (left: 1.5pt + luma(180)))[
-      #strong[#m.alias] #text(size: 8pt)[(reasoning: #m.reasoning_tipo)]
-      #field("Reasoning (estratto, prime 15 righe; completo in Appendice B)")[]
+    #model-block(m.alias, esito-color(m.soluzione_corretta))[
+      #text(size: 8.5pt, fill: muted)[(reasoning: #m.reasoning_tipo)]
+      #lab-only("Reasoning (estratto, prime 15 righe; completo in Appendice B)")
       #plain(m.reasoning_estratto, size: 7.5pt)
-      #field("Soluzione SQL")[]
+      #lab-only("Soluzione SQL")
       #sqlblock(m.sql)
-      #field("Analisi del reasoning")[Corretto: #m.reasoning_corretto. Passi mancanti: #lst(m.passi_mancanti). Passi errati: #lst(m.passi_errati). Passi in ordine errato: #lst(m.passi_fuori_ordine). Passi ridondanti o inefficienti: #lst(m.passi_ridondanti). \ #m.commento_reasoning]
-      #field("Analisi della soluzione")[Corretta: #m.soluzione_corretta. Segue il reasoning: #m.segue_reasoning. \ #m.commento_soluzione]
-      #field("Prompt aggiornato")[]
-      #if m.r2 == none [Non necessario: la soluzione era corretta al primo giro.] else [
+      #lab-only("Analisi del reasoning")
+      #note[
+        #grid(columns: (4.2cm, 1fr), row-gutter: 5pt, column-gutter: 6pt,
+          text(fill: muted)[Reasoning corretto], strong(m.reasoning_corretto),
+          text(fill: muted)[Passi mancanti], lst(m.passi_mancanti),
+          text(fill: muted)[Passi errati], lst(m.passi_errati),
+          text(fill: muted)[Passi in ordine errato], lst(m.passi_fuori_ordine),
+          text(fill: muted)[Ridondanti/inefficienti], lst(m.passi_ridondanti))
+        #v(0.2em) #m.commento_reasoning
+      ]
+      #lab-only("Analisi della soluzione")
+      #note[
+        Soluzione corretta: #strong[#m.soluzione_corretta] #h(1em) Segue il reasoning: #strong[#m.segue_reasoning] \
+        #v(0.2em) #m.commento_soluzione
+      ]
+      #lab-only("Prompt aggiornato")
+      #if m.r2 == none { text(size: 9.5pt)[Non necessario: la soluzione era corretta al primo giro.] } else [
         #plain(m.prompt_aggiornato)
-        #field("Reasoning (aggiornato)")[]
+        #lab-only("Reasoning (aggiornato)")
         #plain(m.r2.reasoning_estratto, size: 7.5pt)
-        #field("Soluzione SQL (aggiornata)")[]
+        #lab-only("Soluzione SQL (aggiornata)")
         #sqlblock(m.r2.sql)
-        #field("Analisi")[Reasoning corretto: #m.r2.reasoning_corretto. #m.r2.commento_reasoning \ Soluzione corretta: #m.r2.soluzione_corretta. #m.r2.commento_soluzione]
+        #lab-only("Analisi (giro 2)")
+        #note[
+          Reasoning corretto: #strong[#m.r2.reasoning_corretto]. #m.r2.commento_reasoning \
+          #v(0.2em) Soluzione corretta: #strong[#m.r2.soluzione_corretta]. #m.r2.commento_soluzione
+        ]
       ]
     ]
   ]
@@ -124,15 +202,18 @@
   #field("Confronto modelli (soluzione SQL)")[#q.confronto_soluzione]
 ]
 
+#pagebreak(weak: true)
 == Q4 e Q10: GPT senza reasoning
 #for n in data.p3.nr [
-  #block(breakable: true, above: 1em)[
+  #block(breakable: true, above: 1.4em)[
     #heading(level: 3, numbering: none)[Q#n.q]
     #field("Output")[#n.output]
-    #field("Soluzione")[]
+    #lab-only("Soluzione")
     #sqlblock(n.sql)
-    #field("Output corretto?")[#n.output_corretto. #n.commento_output]
-    #field("Soluzione corretta?")[#n.soluzione_corretta. #n.commento_soluzione]
+    #lab-only("Analisi dell'output")
+    #note[Output corretto: #strong[#n.output_corretto]. #n.commento_output]
+    #lab-only("Analisi della soluzione")
+    #note[Soluzione corretta: #strong[#n.soluzione_corretta]. #n.commento_soluzione]
     #field("Confronto modelli GPT (reasoning)")[#n.confronto_gpt_reasoning]
     #field("Confronto modelli GPT (soluzione SQL)")[#n.confronto_gpt_soluzione]
   ]
@@ -145,19 +226,25 @@
 // ---------- appendici ----------
 = Appendice A – Prompt completi
 #for p in data.appendici.A [
-  #block(breakable: true)[#strong[#p.id] #plain(p.prompt)]
+  #block(breakable: true, above: 1em)[#lab(p.id) #v(0.2em) #plain(p.prompt)]
 ]
 = Appendice B – Reasoning completi
 #for r in data.appendici.B [
-  #block(breakable: true)[#strong[#r.q – #r.alias] #text(size: 7.5pt, raw(r.reasoning, block: true))]
+  #block(breakable: true, above: 1.2em)[#lab(r.q + " – " + r.alias) #v(0.2em) #text(size: 7.5pt, raw(r.reasoning, block: true))]
 ]
 = Appendice C – DDL e database di test
-#for d in data.appendici.C.ddl [#strong[#d.nome] #sqlblock(d.sql)]
-#table(columns: (auto, 1fr, auto, auto, auto, auto, auto), inset: 3pt, align: left,
-  [*Schema*], [*Tabella*], [*base*], [*m1*], [*m2*], [*m3*], [*m4*],
+#for d in data.appendici.C.ddl [
+  #lab-only(d.nome)
+  #sqlblock(d.sql, size: 8pt)
+]
+#heading(level: 2, numbering: none)[Righe per tabella e istanza]
+#table(columns: (auto, 1fr, auto, auto, auto, auto, auto), align: (left, left, right, right, right, right, right),
+  fill: zebra, inset: 3.5pt,
+  hcell[Schema], hcell[Tabella], hcell[base], hcell[m1], hcell[m2], hcell[m3], hcell[m4],
   ..data.appendici.C.stats.map(s => (s.schema, s.tabella, ..s.righe.map(str))).flatten())
+#heading(level: 2, numbering: none)[Mutazioni]
 #for m in data.appendici.C.mutazioni [- #m \ ]
 = Appendice D – Chiamate e costi
-#table(columns: (1fr, auto, auto), inset: 3pt, align: left,
-  [*Modello*], [*Chiamate*], [*Costo (USD)*],
+#table(columns: (1fr, auto, auto), align: (left, right, right), fill: zebra,
+  hcell[Modello], hcell[Chiamate], hcell[Costo (USD)],
   ..data.appendici.D.map(r => (r.alias, str(r.chiamate), str(calc.round(r.costo, digits: 3)))).flatten())
