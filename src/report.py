@@ -151,7 +151,58 @@ def _p3_section(gold):
                            "commento_soluzione": e["commento_soluzione"],
                            "confronto_gpt_reasoning": e["confronto_gpt_reasoning"],
                            "confronto_gpt_soluzione": e["confronto_gpt_soluzione"]})
-    return {"queries": queries, "nr": nr}
+    models = list(config.PART_MODELS[3])
+    righe, tot = [], {a: [0, 0, 0] for a in models + ["gpt-nr"]}
+    find = lambda q, a, r: next((e for e in evals.values() if e["item_id"] == f"Q{q}" and e["alias"] == a
+                                 and e["round"] == r), None)
+    for q in A.Q_P3:
+        celle = {}
+        for a in models:
+            e1, e2 = find(q, a, 1), find(q, a, 2)
+            if e1 is None:
+                celle[a] = None
+                continue
+            r1, r2 = e1["ex"], (e2["ex"] if e2 else None)
+            tot[a][0] += 1
+            tot[a][1] += r1
+            tot[a][2] += r2 if (r1 == 0 and r2 is not None) else r1
+            celle[a] = {"r1": r1, "r2": r2}
+        e = find(q, "gpt-nr", 2)
+        if e:
+            tot["gpt-nr"][0] += 1
+            tot["gpt-nr"][1] += e["ex"]
+            tot["gpt-nr"][2] += e["ex"]
+        celle["gpt-nr"] = {"r1": e["ex"], "r2": None} if e else None
+        righe.append({"q": q, "celle": celle})
+    tabella = {"modelli": models + ["gpt-nr"], "righe": righe,
+               "tot_r1": {a: f"{v[1]}/{v[0]}" for a, v in tot.items()},
+               "tot_finale": {a: f"{v[2]}/{v[0]}" for a, v in tot.items()}}
+    return {"queries": queries, "nr": nr, "tabella": tabella}
+
+
+INTRO = {
+    1: ("In questa parte ho messo alla prova tre modelli proprietari (gpt, gemini e codestral) sulla generazione di "
+        "query SQL a partire da domande in italiano sullo schema Biblioteca. Ho coperto i sette pattern di difficoltà "
+        "(da 0 a 6): proiezione con filtro e ordinamento, join, raggruppamento con HAVING e aggregate, query risolvibili "
+        "in più modi, divisione (\"per ogni / tutti\"), esclusione con NOT IN o EXCEPT, CTE e subquery correlate.\n\n"
+        "Nei pattern 3, 5 e 6 ho imposto esplicitamente la strategia di soluzione (JOIN, IN o INTERSECT; NOT IN o "
+        "EXCEPT; CTE o correlazione), per un totale di 11 prompt. Lo scopo è misurare tre cose: se la query restituisce "
+        "il risultato corretto (accuratezza di esecuzione su 5 istanze del database), se il modello rispetta la "
+        "strategia richiesta e se si limita a restituire solo il codice SQL come chiesto."),
+    2: ("In questa parte ho ripetuto gli stessi 11 prompt della Parte 1, identici carattere per carattere, su cinque "
+        "modelli open source di piccole dimensioni, da 1 a 8 miliardi di parametri (llama-1b, llama-3b, gemma-4b, "
+        "ministral-8b e qwen3-8b). Cambia quindi solo il modello, e ogni differenza di risultato è attribuibile a lui.\n\n"
+        "Lo scopo è capire come cambia la capacità di generare SQL al ridursi delle dimensioni: a quale taglia le "
+        "query smettono di essere eseguibili, quali pattern cedono per primi, quanto spesso i modelli ignorano il "
+        "formato o la strategia imposta e quanto distano dai modelli proprietari della Parte 1."),
+    3: ("In questa parte ho affrontato dieci query complesse (Q1-Q10) su cinque schemi diversi, con prompt in inglese e "
+        "tre modelli dotati di reasoning (gemini-2.5, qwen3-235b e gpt-r). Le query richiedono più passaggi: soglie su "
+        "aggregati, confronti tra periodi, condizioni di tipo \"mai\" e \"tutti\", confronti tra coppie.\n\n"
+        "Qui non analizzo solo la query finale ma anche il ragionamento del modello: se è corretto, se ci sono passi "
+        "mancanti, errati, in ordine sbagliato o ridondanti, e se la soluzione lo segue. Per le risposte sbagliate ho "
+        "poi aggiornato il prompt con chiarimenti mirati, senza mostrare la soluzione, e ho ripetuto la prova una sola "
+        "volta (giro 2). Per Q4 e Q10 ho infine confrontato GPT con e senza reasoning."),
+}
 
 
 def build_data(draft):
@@ -208,10 +259,10 @@ def build_data(draft):
     data = {"meta": meta,
             "metodologia": {"modelli": modelli, "testo": testo, "note": note},
             "p1": {**{k: v for k, v in p1.items() if not k.startswith("_")},
-                   "commento": _read_narr("p1_commento_generale.md")},
+                   "commento": _read_narr("p1_commento_generale.md"), "intro": INTRO[1]},
             "p2": {**{k: v for k, v in p2.items() if not k.startswith("_")}, "grafico": "p2_accuratezza.svg",
-                   "sintesi": _read_narr("p2_sintesi.md")},
-            "p3": p3, "conclusioni": _read_narr("conclusioni.md"),
+                   "sintesi": _read_narr("p2_sintesi.md"), "intro": INTRO[2]},
+            "p3": {**p3, "intro": INTRO[3]}, "conclusioni": _read_narr("conclusioni.md"),
             "appendici": {"A": app_a, "B": app_b,
                           "C": {"ddl": ddl, "stats": stats, "mutazioni": db.MUTATIONS},
                           "D": [{"alias": a, "chiamate": v[0], "costo": v[1]} for a, v in cost.items()]}}

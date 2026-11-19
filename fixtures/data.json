@@ -221,6 +221,7 @@
     ]
    }
   ],
+  "intro": "Introduzione di prova (PENDING).",
   "commento": "## Punti forti e deboli\n\nPENDING\n\n## Confronto tra LLM\n\nPENDING"
  },
  "p2": {
@@ -303,10 +304,70 @@
     ]
    }
   ],
+  "intro": "Introduzione di prova (PENDING).",
   "grafico": "p2_accuratezza.svg",
   "sintesi": "PENDING sintesi Parte 2."
  },
  "p3": {
+  "intro": "Introduzione di prova (PENDING).",
+  "tabella": {
+   "modelli": [
+    "gemini-2.5",
+    "qwen3-235b",
+    "gpt-r",
+    "gpt-nr"
+   ],
+   "righe": [
+    {
+     "q": 1,
+     "celle": {
+      "gemini-2.5": {
+       "r1": 1,
+       "r2": null
+      },
+      "qwen3-235b": {
+       "r1": 1,
+       "r2": null
+      },
+      "gpt-r": {
+       "r1": 1,
+       "r2": null
+      },
+      "gpt-nr": null
+     }
+    },
+    {
+     "q": 2,
+     "celle": {
+      "gemini-2.5": {
+       "r1": 0,
+       "r2": 1
+      },
+      "qwen3-235b": {
+       "r1": 0,
+       "r2": 1
+      },
+      "gpt-r": {
+       "r1": 0,
+       "r2": 1
+      },
+      "gpt-nr": null
+     }
+    }
+   ],
+   "tot_r1": {
+    "gemini-2.5": "1/2",
+    "qwen3-235b": "1/2",
+    "gpt-r": "1/2",
+    "gpt-nr": "1/2"
+   },
+   "tot_finale": {
+    "gemini-2.5": "2/2",
+    "qwen3-235b": "2/2",
+    "gpt-r": "2/2",
+    "gpt-nr": "2/2"
+   }
+  },
   "queries": [
    {
     "q": 1,

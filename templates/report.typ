@@ -96,6 +96,9 @@
 #v(0.5em)
 #for n in data.metodologia.note [- #n \ ]
 
+#let intro(t) = block(width: 100%, fill: accent.lighten(92%), stroke: (left: 3pt + accent), inset: (x: 12pt, y: 10pt),
+  radius: 2pt, above: 0.4em, below: 1.2em)[#lab("Obiettivo della sezione") #v(0.3em) #prose(t)]
+
 // ---------- tabella EX ----------
 #let ex-table(sec) = {
   let ms = sec.modelli
@@ -111,6 +114,26 @@
   align(center, table(columns: (auto,) + (1fr,) * ms.len(), align: center + horizon,
     hcell[Pattern], ..ms.map(m => hcell(m)), ..cells))
   text(size: 8.5pt, fill: muted)[Accuratezza di esecuzione (EX) su 5 istanze; tra parentesi quella sulla sola istanza base.]
+}
+
+#let p3-cell(c) = {
+  if c == none { return table.cell(align: center)[#text(fill: muted)[-]] }
+  let (txt, col) = if c.r1 == 1 { ("corretta", rgb("#d4edd6")) } else if c.r2 == none { ("errata", rgb("#f8d0d0")) } else if c.r2 == 1 { ("errata → corretta", rgb("#fff0b3")) } else { ("errata → errata", rgb("#f8d0d0")) }
+  table.cell(fill: col)[#txt]
+}
+#let p3-table(t) = {
+  let cells = ()
+  for r in t.righe {
+    cells.push(strong[Q#r.q])
+    for m in t.modelli { cells.push(p3-cell(r.celle.at(m))) }
+  }
+  cells.push(strong[Corrette al giro 1])
+  for m in t.modelli { cells.push(table.cell(align: center, strong(t.tot_r1.at(m)))) }
+  cells.push(strong[Corrette dopo il giro 2])
+  for m in t.modelli { cells.push(table.cell(align: center, strong(t.tot_finale.at(m)))) }
+  align(center, table(columns: (auto,) + (1fr,) * t.modelli.len(), align: center + horizon, inset: 4.5pt,
+    hcell[Query], ..t.modelli.map(m => hcell(m)), ..cells))
+  text(size: 8.5pt, fill: muted)[Esito dell'esecuzione sulle 5 istanze. "errata → corretta" indica una risposta sbagliata al giro 1 e corretta dopo il prompt aggiornato. gpt-nr è GPT senza reasoning, provato solo su Q4 e Q10.]
 }
 
 #let card-p12(c) = block(breakable: true, width: 100%, above: 2em)[
@@ -137,6 +160,7 @@
 
 // ---------- Parte 1 ----------
 = Parte 1 – Modelli proprietari
+#intro(data.p1.intro)
 #ex-table(data.p1)
 #for c in data.p1.schede [#card-p12(c)]
 == Commento generale
@@ -144,6 +168,7 @@
 
 // ---------- Parte 2 ----------
 = Parte 2 – Modelli open source (≤ 8B)
+#intro(data.p2.intro)
 #ex-table(data.p2)
 #figure(image(data.p2.grafico, width: 85%), caption: [Accuratezza (EX) per numero di parametri.])
 #for c in data.p2.schede [#card-p12(c)]
@@ -152,6 +177,8 @@
 
 // ---------- Parte 3 ----------
 = Parte 3 – Modelli con reasoning
+#intro(data.p3.intro)
+#p3-table(data.p3.tabella)
 #for q in data.p3.queries [
   #pagebreak(weak: true)
   #heading(level: 2)[Q#q.q]
