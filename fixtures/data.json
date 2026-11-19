@@ -1,0 +1,638 @@
+{
+ "meta": {
+  "titolo": "Text2SQL – Esercitazione",
+  "nome": "Nome Cognome",
+  "matricola": "000000",
+  "master": "Master Intelligenza Artificiale: Tecnologie, Modelli e Applicazioni",
+  "data": "19 novembre 2026",
+  "draft": true
+ },
+ "metodologia": {
+  "modelli": [
+   {
+    "alias": "gpt",
+    "id": "vendor/gpt",
+    "params": "temperature=0",
+    "parte": 1
+   },
+   {
+    "alias": "gemini",
+    "id": "vendor/gemini",
+    "params": "temperature=0",
+    "parte": 1
+   },
+   {
+    "alias": "codestral",
+    "id": "vendor/codestral",
+    "params": "temperature=0",
+    "parte": 1
+   },
+   {
+    "alias": "llama-1b",
+    "id": "vendor/llama-1b",
+    "params": "temperature=0",
+    "parte": 2
+   },
+   {
+    "alias": "llama-3b",
+    "id": "vendor/llama-3b",
+    "params": "temperature=0",
+    "parte": 2
+   },
+   {
+    "alias": "gemma-4b",
+    "id": "vendor/gemma-4b",
+    "params": "temperature=0",
+    "parte": 2
+   },
+   {
+    "alias": "ministral-8b",
+    "id": "vendor/ministral-8b",
+    "params": "temperature=0",
+    "parte": 2
+   },
+   {
+    "alias": "qwen3-8b",
+    "id": "vendor/qwen3-8b",
+    "params": "temperature=0",
+    "parte": 2
+   },
+   {
+    "alias": "gemini-2.5",
+    "id": "vendor/gemini-2.5",
+    "params": "temperature=0",
+    "parte": 3
+   },
+   {
+    "alias": "qwen3-235b",
+    "id": "vendor/qwen3-235b",
+    "params": "temperature=0",
+    "parte": 3
+   },
+   {
+    "alias": "gpt-r",
+    "id": "vendor/gpt-r",
+    "params": "temperature=0",
+    "parte": 3
+   }
+  ],
+  "testo": "Ho interrogato i modelli tramite OpenRouter (PENDING).",
+  "note": [
+   "Il testo cita i pattern “3, 6, 7”; l'elenco va da 0 a 6, quindi ho trattato 3, 5 e 6 come pattern a soluzione multipla."
+  ]
+ },
+ "p1": {
+  "modelli": [
+   "gpt",
+   "gemini",
+   "codestral"
+  ],
+  "tabella": {
+   "0": {
+    "gpt": [
+     1.0,
+     1.0
+    ],
+    "gemini": [
+     1.0,
+     1.0
+    ],
+    "codestral": [
+     1.0,
+     1.0
+    ]
+   },
+   "3": {
+    "gpt": [
+     0.67,
+     1.0
+    ],
+    "gemini": [
+     0.67,
+     1.0
+    ],
+    "codestral": [
+     0.67,
+     1.0
+    ]
+   }
+  },
+  "schede": [
+   {
+    "id": 1,
+    "pattern": 0,
+    "pattern_desc": "Proiezione: WHERE (+ ORDER BY) (PENDING)",
+    "strategia": null,
+    "domanda": "Mostra il titolo e l’anno di pubblicazione dei libri del genere “fantasy” (PENDING).",
+    "soluzioni": [
+     {
+      "strategia": "unica",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;"
+     }
+    ],
+    "prompt": "Sei un assistente AI (PENDING)...\n\nDomanda:\n\n...\n\nCodice SQL:",
+    "modelli": [
+     {
+      "alias": "gpt",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "esito": "corretta",
+      "analisi": "Ho verificato l'esecuzione sulle 5 istanze (PENDING)."
+     },
+     {
+      "alias": "gemini",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "esito": "parzialmente corretta",
+      "analisi": "Ho verificato l'esecuzione sulle 5 istanze (PENDING)."
+     },
+     {
+      "alias": "codestral",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "esito": "errata",
+      "analisi": "Ho verificato l'esecuzione sulle 5 istanze (PENDING)."
+     }
+    ]
+   },
+   {
+    "id": 2,
+    "pattern": 3,
+    "pattern_desc": "Proiezione: WHERE (+ ORDER BY) (PENDING)",
+    "strategia": "JOIN",
+    "domanda": "Mostra il titolo e l’anno di pubblicazione dei libri del genere “fantasy” (PENDING).",
+    "soluzioni": [
+     {
+      "strategia": "JOIN",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;"
+     }
+    ],
+    "prompt": "Sei un assistente AI (PENDING)...\n\nDomanda:\n\n...\n\nCodice SQL:",
+    "modelli": [
+     {
+      "alias": "gpt",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "esito": "corretta",
+      "analisi": "Ho verificato l'esecuzione sulle 5 istanze (PENDING)."
+     },
+     {
+      "alias": "gemini",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "esito": "parzialmente corretta",
+      "analisi": "Ho verificato l'esecuzione sulle 5 istanze (PENDING)."
+     },
+     {
+      "alias": "codestral",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "esito": "errata",
+      "analisi": "Ho verificato l'esecuzione sulle 5 istanze (PENDING)."
+     }
+    ]
+   },
+   {
+    "id": 3,
+    "pattern": 3,
+    "pattern_desc": "Proiezione: WHERE (+ ORDER BY) (PENDING)",
+    "strategia": "INTERSECT",
+    "domanda": "Mostra il titolo e l’anno di pubblicazione dei libri del genere “fantasy” (PENDING).",
+    "soluzioni": [
+     {
+      "strategia": "INTERSECT",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;"
+     }
+    ],
+    "prompt": "Sei un assistente AI (PENDING)...\n\nDomanda:\n\n...\n\nCodice SQL:",
+    "modelli": [
+     {
+      "alias": "gpt",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "esito": "corretta",
+      "analisi": "Ho verificato l'esecuzione sulle 5 istanze (PENDING)."
+     },
+     {
+      "alias": "gemini",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "esito": "parzialmente corretta",
+      "analisi": "Ho verificato l'esecuzione sulle 5 istanze (PENDING)."
+     },
+     {
+      "alias": "codestral",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "esito": "errata",
+      "analisi": "Ho verificato l'esecuzione sulle 5 istanze (PENDING)."
+     }
+    ]
+   }
+  ],
+  "commento": "## Punti forti e deboli\n\nPENDING\n\n## Confronto tra LLM\n\nPENDING"
+ },
+ "p2": {
+  "modelli": [
+   "llama-1b",
+   "llama-3b",
+   "gemma-4b",
+   "ministral-8b",
+   "qwen3-8b"
+  ],
+  "tabella": {
+   "0": {
+    "llama-1b": [
+     0.5,
+     1.0
+    ],
+    "llama-3b": [
+     0.5,
+     1.0
+    ],
+    "gemma-4b": [
+     0.5,
+     1.0
+    ],
+    "ministral-8b": [
+     0.5,
+     1.0
+    ],
+    "qwen3-8b": [
+     0.5,
+     1.0
+    ]
+   }
+  },
+  "schede": [
+   {
+    "id": 1,
+    "pattern": 0,
+    "pattern_desc": "Proiezione: WHERE (+ ORDER BY) (PENDING)",
+    "strategia": null,
+    "domanda": "Mostra il titolo e l’anno di pubblicazione dei libri del genere “fantasy” (PENDING).",
+    "soluzioni": [
+     {
+      "strategia": "unica",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;"
+     }
+    ],
+    "prompt": "Sei un assistente AI (PENDING)...\n\nDomanda:\n\n...\n\nCodice SQL:",
+    "modelli": [
+     {
+      "alias": "llama-1b",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "esito": "corretta",
+      "analisi": "Ho verificato l'esecuzione sulle 5 istanze (PENDING)."
+     },
+     {
+      "alias": "llama-3b",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "esito": "parzialmente corretta",
+      "analisi": "Ho verificato l'esecuzione sulle 5 istanze (PENDING)."
+     },
+     {
+      "alias": "gemma-4b",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "esito": "errata",
+      "analisi": "Ho verificato l'esecuzione sulle 5 istanze (PENDING)."
+     },
+     {
+      "alias": "ministral-8b",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "esito": "corretta",
+      "analisi": "Ho verificato l'esecuzione sulle 5 istanze (PENDING)."
+     },
+     {
+      "alias": "qwen3-8b",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "esito": "parzialmente corretta",
+      "analisi": "Ho verificato l'esecuzione sulle 5 istanze (PENDING)."
+     }
+    ]
+   }
+  ],
+  "grafico": "p2_accuratezza.svg",
+  "sintesi": "PENDING sintesi Parte 2."
+ },
+ "p3": {
+  "queries": [
+   {
+    "q": 1,
+    "domanda": "Display the name of the authors (PENDING).",
+    "soluzione_attesa": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+    "interpretazioni": [
+     "“copie vendute” = righe di SALE per ISBN (PENDING)"
+    ],
+    "prompt": "You are an AI assistant (PENDING)...",
+    "modelli": [
+     {
+      "alias": "gemini-2.5",
+      "reasoning_tipo": "reasoning.text",
+      "reasoning_estratto": "Passo 1: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 2: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 3: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 4: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 5: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 6: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 7: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 8: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 9: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 10: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 11: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 12: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 13: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 14: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 15: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "reasoning_corretto": "parzialmente",
+      "passi_mancanti": [
+       "PENDING"
+      ],
+      "passi_errati": [],
+      "passi_fuori_ordine": [],
+      "passi_ridondanti": [
+       "PENDING"
+      ],
+      "commento_reasoning": "Ho letto il ragionamento (PENDING).",
+      "soluzione_corretta": "no",
+      "segue_reasoning": "sì",
+      "commento_soluzione": "La soluzione (PENDING).",
+      "prompt_aggiornato": "Prompt con chiarimenti (PENDING).",
+      "r2": {
+       "reasoning_estratto": "Ragionamento aggiornato (PENDING).",
+       "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+       "reasoning_corretto": "sì",
+       "commento_reasoning": "(PENDING)",
+       "soluzione_corretta": "sì",
+       "commento_soluzione": "(PENDING)"
+      }
+     },
+     {
+      "alias": "qwen3-235b",
+      "reasoning_tipo": "reasoning.text",
+      "reasoning_estratto": "Passo 1: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 2: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 3: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 4: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 5: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 6: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 7: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 8: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 9: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 10: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 11: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 12: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 13: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 14: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 15: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "reasoning_corretto": "parzialmente",
+      "passi_mancanti": [
+       "PENDING"
+      ],
+      "passi_errati": [],
+      "passi_fuori_ordine": [],
+      "passi_ridondanti": [
+       "PENDING"
+      ],
+      "commento_reasoning": "Ho letto il ragionamento (PENDING).",
+      "soluzione_corretta": "no",
+      "segue_reasoning": "sì",
+      "commento_soluzione": "La soluzione (PENDING).",
+      "prompt_aggiornato": "Prompt con chiarimenti (PENDING).",
+      "r2": {
+       "reasoning_estratto": "Ragionamento aggiornato (PENDING).",
+       "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+       "reasoning_corretto": "sì",
+       "commento_reasoning": "(PENDING)",
+       "soluzione_corretta": "sì",
+       "commento_soluzione": "(PENDING)"
+      }
+     },
+     {
+      "alias": "gpt-r",
+      "reasoning_tipo": "reasoning.text",
+      "reasoning_estratto": "Passo 1: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 2: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 3: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 4: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 5: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 6: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 7: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 8: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 9: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 10: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 11: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 12: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 13: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 14: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 15: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "reasoning_corretto": "parzialmente",
+      "passi_mancanti": [
+       "PENDING"
+      ],
+      "passi_errati": [],
+      "passi_fuori_ordine": [],
+      "passi_ridondanti": [
+       "PENDING"
+      ],
+      "commento_reasoning": "Ho letto il ragionamento (PENDING).",
+      "soluzione_corretta": "no",
+      "segue_reasoning": "sì",
+      "commento_soluzione": "La soluzione (PENDING).",
+      "prompt_aggiornato": "Prompt con chiarimenti (PENDING).",
+      "r2": {
+       "reasoning_estratto": "Ragionamento aggiornato (PENDING).",
+       "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+       "reasoning_corretto": "sì",
+       "commento_reasoning": "(PENDING)",
+       "soluzione_corretta": "sì",
+       "commento_soluzione": "(PENDING)"
+      }
+     }
+    ],
+    "confronto_reasoning": "PENDING",
+    "confronto_soluzione": "PENDING"
+   },
+   {
+    "q": 4,
+    "domanda": "Display the name of the authors (PENDING).",
+    "soluzione_attesa": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+    "interpretazioni": [
+     "“copie vendute” = righe di SALE per ISBN (PENDING)"
+    ],
+    "prompt": "You are an AI assistant (PENDING)...",
+    "modelli": [
+     {
+      "alias": "gemini-2.5",
+      "reasoning_tipo": "reasoning.text",
+      "reasoning_estratto": "Passo 1: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 2: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 3: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 4: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 5: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 6: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 7: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 8: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 9: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 10: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 11: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 12: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 13: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 14: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 15: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "reasoning_corretto": "parzialmente",
+      "passi_mancanti": [
+       "PENDING"
+      ],
+      "passi_errati": [],
+      "passi_fuori_ordine": [],
+      "passi_ridondanti": [
+       "PENDING"
+      ],
+      "commento_reasoning": "Ho letto il ragionamento (PENDING).",
+      "soluzione_corretta": "no",
+      "segue_reasoning": "sì",
+      "commento_soluzione": "La soluzione (PENDING).",
+      "prompt_aggiornato": "Prompt con chiarimenti (PENDING).",
+      "r2": {
+       "reasoning_estratto": "Ragionamento aggiornato (PENDING).",
+       "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+       "reasoning_corretto": "sì",
+       "commento_reasoning": "(PENDING)",
+       "soluzione_corretta": "sì",
+       "commento_soluzione": "(PENDING)"
+      }
+     },
+     {
+      "alias": "qwen3-235b",
+      "reasoning_tipo": "reasoning.text",
+      "reasoning_estratto": "Passo 1: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 2: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 3: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 4: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 5: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 6: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 7: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 8: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 9: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 10: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 11: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 12: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 13: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 14: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 15: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "reasoning_corretto": "parzialmente",
+      "passi_mancanti": [
+       "PENDING"
+      ],
+      "passi_errati": [],
+      "passi_fuori_ordine": [],
+      "passi_ridondanti": [
+       "PENDING"
+      ],
+      "commento_reasoning": "Ho letto il ragionamento (PENDING).",
+      "soluzione_corretta": "no",
+      "segue_reasoning": "sì",
+      "commento_soluzione": "La soluzione (PENDING).",
+      "prompt_aggiornato": "Prompt con chiarimenti (PENDING).",
+      "r2": {
+       "reasoning_estratto": "Ragionamento aggiornato (PENDING).",
+       "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+       "reasoning_corretto": "sì",
+       "commento_reasoning": "(PENDING)",
+       "soluzione_corretta": "sì",
+       "commento_soluzione": "(PENDING)"
+      }
+     },
+     {
+      "alias": "gpt-r",
+      "reasoning_tipo": "reasoning.text",
+      "reasoning_estratto": "Passo 1: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 2: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 3: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 4: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 5: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 6: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 7: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 8: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 9: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 10: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 11: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 12: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 13: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 14: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 15: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).",
+      "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+      "reasoning_corretto": "parzialmente",
+      "passi_mancanti": [
+       "PENDING"
+      ],
+      "passi_errati": [],
+      "passi_fuori_ordine": [],
+      "passi_ridondanti": [
+       "PENDING"
+      ],
+      "commento_reasoning": "Ho letto il ragionamento (PENDING).",
+      "soluzione_corretta": "no",
+      "segue_reasoning": "sì",
+      "commento_soluzione": "La soluzione (PENDING).",
+      "prompt_aggiornato": "Prompt con chiarimenti (PENDING).",
+      "r2": {
+       "reasoning_estratto": "Ragionamento aggiornato (PENDING).",
+       "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+       "reasoning_corretto": "sì",
+       "commento_reasoning": "(PENDING)",
+       "soluzione_corretta": "sì",
+       "commento_soluzione": "(PENDING)"
+      }
+     }
+    ],
+    "confronto_reasoning": "PENDING",
+    "confronto_soluzione": "PENDING"
+   }
+  ],
+  "nr": [
+   {
+    "q": 4,
+    "output": "Il modello ha restituito solo codice SQL.",
+    "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+    "output_corretto": "sì",
+    "commento_output": "(PENDING)",
+    "soluzione_corretta": "no",
+    "commento_soluzione": "(PENDING)",
+    "confronto_gpt_reasoning": "PENDING",
+    "confronto_gpt_soluzione": "PENDING"
+   },
+   {
+    "q": 10,
+    "output": "Il modello ha restituito solo codice SQL.",
+    "sql": "SELECT titolo, anno_pubblicazione\nFROM LIBRO\nWHERE genere = 'fantasy' AND numero_copie >= 3\nORDER BY anno_pubblicazione DESC;",
+    "output_corretto": "sì",
+    "commento_output": "(PENDING)",
+    "soluzione_corretta": "no",
+    "commento_soluzione": "(PENDING)",
+    "confronto_gpt_reasoning": "PENDING",
+    "confronto_gpt_soluzione": "PENDING"
+   }
+  ]
+ },
+ "conclusioni": "PENDING conclusioni.",
+ "appendici": {
+  "A": [
+   {
+    "id": "P0",
+    "prompt": "Sei un assistente AI (PENDING)"
+   }
+  ],
+  "B": [
+   {
+    "q": "Q1",
+    "alias": "gemini-2.5",
+    "reasoning": "Passo 1: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 2: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 3: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 4: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 5: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 6: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 7: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 8: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 9: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 10: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 11: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 12: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 13: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 14: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 15: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 16: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 17: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 18: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 19: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 20: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 21: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 22: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 23: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 24: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 25: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 26: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 27: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 28: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 29: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 30: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 31: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 32: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 33: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 34: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 35: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 36: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 37: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 38: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 39: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 40: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 41: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 42: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 43: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 44: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 45: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 46: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 47: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 48: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 49: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 50: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 51: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 52: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 53: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 54: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 55: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 56: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 57: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 58: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 59: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 60: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 61: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 62: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 63: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 64: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 65: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 66: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 67: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 68: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 69: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 70: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 71: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 72: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 73: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 74: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 75: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 76: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 77: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 78: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 79: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 80: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 81: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 82: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 83: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 84: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 85: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 86: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 87: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 88: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 89: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 90: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 91: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 92: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 93: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 94: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 95: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 96: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 97: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 98: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 99: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 100: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 101: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 102: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 103: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 104: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 105: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 106: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 107: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 108: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 109: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 110: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 111: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 112: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 113: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 114: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 115: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 116: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 117: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 118: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 119: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 120: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 121: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 122: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 123: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 124: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 125: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 126: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 127: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 128: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 129: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 130: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 131: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 132: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 133: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 134: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 135: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 136: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 137: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 138: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 139: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 140: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 141: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 142: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 143: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 144: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 145: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 146: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 147: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 148: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 149: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 150: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 151: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 152: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 153: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 154: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 155: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 156: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 157: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 158: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 159: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 160: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 161: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 162: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 163: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 164: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 165: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 166: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 167: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 168: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 169: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 170: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 171: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 172: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 173: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 174: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 175: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 176: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 177: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 178: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 179: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 180: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 181: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 182: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 183: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 184: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 185: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 186: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 187: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 188: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 189: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 190: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 191: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 192: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 193: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 194: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 195: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 196: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 197: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 198: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 199: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING)."
+   },
+   {
+    "q": "Q1",
+    "alias": "qwen3-235b",
+    "reasoning": "Passo 1: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 2: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 3: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 4: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 5: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 6: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 7: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 8: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 9: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 10: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 11: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 12: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 13: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 14: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 15: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 16: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 17: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 18: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 19: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 20: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 21: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 22: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 23: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 24: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 25: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 26: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 27: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 28: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 29: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 30: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 31: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 32: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 33: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 34: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 35: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 36: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 37: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 38: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 39: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 40: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 41: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 42: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 43: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 44: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 45: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 46: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 47: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 48: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 49: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 50: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 51: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 52: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 53: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 54: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 55: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 56: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 57: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 58: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 59: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 60: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 61: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 62: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 63: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 64: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 65: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 66: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 67: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 68: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 69: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 70: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 71: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 72: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 73: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 74: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 75: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 76: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 77: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 78: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 79: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 80: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 81: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 82: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 83: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 84: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 85: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 86: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 87: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 88: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 89: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 90: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 91: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 92: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 93: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 94: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 95: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 96: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 97: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 98: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 99: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 100: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 101: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 102: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 103: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 104: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 105: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 106: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 107: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 108: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 109: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 110: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 111: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 112: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 113: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 114: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 115: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 116: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 117: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 118: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 119: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 120: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 121: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 122: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 123: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 124: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 125: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 126: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 127: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 128: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 129: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 130: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 131: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 132: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 133: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 134: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 135: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 136: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 137: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 138: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 139: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 140: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 141: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 142: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 143: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 144: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 145: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 146: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 147: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 148: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 149: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 150: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 151: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 152: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 153: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 154: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 155: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 156: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 157: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 158: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 159: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 160: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 161: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 162: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 163: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 164: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 165: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 166: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 167: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 168: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 169: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 170: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 171: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 172: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 173: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 174: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 175: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 176: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 177: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 178: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 179: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 180: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 181: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 182: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 183: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 184: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 185: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 186: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 187: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 188: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 189: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 190: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 191: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 192: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 193: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 194: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 195: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 196: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 197: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 198: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 199: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING)."
+   },
+   {
+    "q": "Q1",
+    "alias": "gpt-r",
+    "reasoning": "Passo 1: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 2: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 3: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 4: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 5: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 6: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 7: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 8: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 9: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 10: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 11: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 12: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 13: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 14: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 15: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 16: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 17: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 18: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 19: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 20: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 21: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 22: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 23: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 24: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 25: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 26: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 27: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 28: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 29: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 30: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 31: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 32: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 33: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 34: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 35: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 36: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 37: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 38: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 39: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 40: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 41: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 42: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 43: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 44: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 45: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 46: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 47: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 48: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 49: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 50: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 51: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 52: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 53: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 54: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 55: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 56: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 57: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 58: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 59: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 60: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 61: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 62: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 63: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 64: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 65: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 66: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 67: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 68: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 69: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 70: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 71: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 72: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 73: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 74: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 75: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 76: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 77: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 78: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 79: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 80: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 81: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 82: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 83: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 84: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 85: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 86: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 87: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 88: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 89: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 90: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 91: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 92: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 93: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 94: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 95: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 96: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 97: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 98: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 99: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 100: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 101: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 102: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 103: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 104: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 105: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 106: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 107: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 108: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 109: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 110: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 111: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 112: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 113: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 114: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 115: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 116: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 117: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 118: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 119: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 120: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 121: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 122: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 123: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 124: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 125: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 126: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 127: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 128: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 129: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 130: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 131: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 132: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 133: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 134: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 135: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 136: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 137: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 138: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 139: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 140: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 141: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 142: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 143: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 144: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 145: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 146: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 147: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 148: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 149: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 150: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 151: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 152: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 153: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 154: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 155: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 156: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 157: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 158: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 159: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 160: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 161: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 162: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 163: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 164: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 165: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 166: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 167: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 168: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 169: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 170: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 171: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 172: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 173: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 174: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 175: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 176: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 177: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 178: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 179: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 180: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 181: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 182: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 183: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 184: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 185: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 186: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 187: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 188: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 189: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 190: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 191: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 192: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 193: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 194: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 195: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 196: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 197: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 198: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING).\nPasso 199: ragiono sullo schema e sulla condizione richiesta (testo di prova PENDING)."
+   }
+  ],
+  "C": {
+   "ddl": [
+    {
+     "nome": "biblioteca",
+     "sql": "CREATE TABLE AUTORE (...);"
+    }
+   ],
+   "stats": [
+    {
+     "schema": "biblioteca",
+     "tabella": "LIBRO",
+     "righe": [
+      30,
+      21,
+      30,
+      40,
+      25
+     ]
+    }
+   ],
+   "mutazioni": [
+    "m1: elimina il 30% delle righe figlie"
+   ]
+  },
+  "D": [
+   {
+    "alias": "gpt",
+    "chiamate": 11,
+    "costo": 0.12
+   },
+   {
+    "alias": "gemini",
+    "chiamate": 11,
+    "costo": 0.12
+   },
+   {
+    "alias": "codestral",
+    "chiamate": 11,
+    "costo": 0.12
+   },
+   {
+    "alias": "llama-1b",
+    "chiamate": 11,
+    "costo": 0.12
+   },
+   {
+    "alias": "llama-3b",
+    "chiamate": 11,
+    "costo": 0.12
+   },
+   {
+    "alias": "gemma-4b",
+    "chiamate": 11,
+    "costo": 0.12
+   },
+   {
+    "alias": "ministral-8b",
+    "chiamate": 11,
+    "costo": 0.12
+   },
+   {
+    "alias": "qwen3-8b",
+    "chiamate": 11,
+    "costo": 0.12
+   },
+   {
+    "alias": "gemini-2.5",
+    "chiamate": 11,
+    "costo": 0.12
+   },
+   {
+    "alias": "qwen3-235b",
+    "chiamate": 11,
+    "costo": 0.12
+   },
+   {
+    "alias": "gpt-r",
+    "chiamate": 11,
+    "costo": 0.12
+   }
+  ]
+ }
+}

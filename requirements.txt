@@ -1,0 +1,6 @@
+requests
+duckdb
+sqlglot
+matplotlib
+typst
+python-dotenv

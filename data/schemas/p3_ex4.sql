@@ -1,0 +1,25 @@
+CREATE TABLE ROUTE (
+  RouteCode INTEGER PRIMARY KEY,
+  OriginAirport VARCHAR NOT NULL,
+  DestinationAirport VARCHAR NOT NULL,
+  Duration INTEGER NOT NULL
+);
+CREATE TABLE FLIGHT (
+  RouteCode INTEGER NOT NULL REFERENCES ROUTE(RouteCode),
+  Date DATE NOT NULL,
+  DepartureTime TIME NOT NULL,
+  AircraftID VARCHAR NOT NULL,
+  PRIMARY KEY (RouteCode, Date, DepartureTime)
+);
+CREATE TABLE TICKET (
+  TicketCode INTEGER PRIMARY KEY,
+  RouteCode INTEGER NOT NULL,
+  Date DATE NOT NULL,
+  DepartureTime TIME NOT NULL,
+  PassengerName VARCHAR NOT NULL,
+  FOREIGN KEY (RouteCode, Date, DepartureTime) REFERENCES FLIGHT(RouteCode, Date, DepartureTime)
+);
+CREATE TABLE BOARDING_PASS (
+  TicketCode INTEGER PRIMARY KEY REFERENCES TICKET(TicketCode),
+  SeatNumber VARCHAR NOT NULL
+);

@@ -1,0 +1,28 @@
+CREATE TABLE CUSTOMER (
+  CustomerCode INTEGER PRIMARY KEY,
+  CustomerName VARCHAR NOT NULL,
+  DocumentType VARCHAR NOT NULL,
+  DocumentNumber VARCHAR NOT NULL
+);
+CREATE TABLE HOTEL (
+  HotelCode INTEGER PRIMARY KEY,
+  HotelName VARCHAR NOT NULL,
+  Municipality VARCHAR NOT NULL,
+  Province VARCHAR NOT NULL,
+  StarRating INTEGER NOT NULL
+);
+CREATE TABLE HOTEL_ROOM (
+  RoomNumber INTEGER NOT NULL,
+  HotelCode INTEGER NOT NULL REFERENCES HOTEL(HotelCode),
+  RoomType VARCHAR NOT NULL,
+  PRIMARY KEY (RoomNumber, HotelCode)
+);
+CREATE TABLE BOOKING (
+  RoomNumber INTEGER NOT NULL,
+  HotelCode INTEGER NOT NULL,
+  StartDate DATE NOT NULL,
+  EndDate DATE NOT NULL,
+  CustomerCode INTEGER NOT NULL REFERENCES CUSTOMER(CustomerCode),
+  PRIMARY KEY (RoomNumber, HotelCode, StartDate),
+  FOREIGN KEY (RoomNumber, HotelCode) REFERENCES HOTEL_ROOM(RoomNumber, HotelCode)
+);
